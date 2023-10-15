@@ -1,0 +1,36 @@
+body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+    height: 100%;
+  }
+  
+  .loginForm {
+    padding: 20px;
+    background-color: lightgoldenrodyellow;
+    border-radius: 20px;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input {
+    margin-bottom: 10px;
+  }
+  
+
+  
