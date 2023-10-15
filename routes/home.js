@@ -1,11 +1,12 @@
 var express = require('express');
+const path = require('path');
 var router = express.Router();
 
 function my_get(req,res,next)
 {
-    res.send("This is home");
+    res.sendFile(path.join(__dirname,'../views/home.html'));
 }
-/* GET home page */
+
 router.get('/', my_get);
 
 module.exports = router;

@@ -4,7 +4,7 @@ var router = express.Router();
 
 function my_get(req,res,next)
 {
-    res.sendFile(path.join(__dirname,'../views/login.html'));
+    res.sendFile(path.join(__dirname,'../views/search.html'));
 }
 
 router.get('/', my_get);
