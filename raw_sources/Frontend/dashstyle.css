@@ -1,0 +1,27 @@
+
+#dash_div {
+    float: left;
+    width: 50%;
+    /* background-color: lightgrey; */
+    margin-top: 14%;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: -10px;
+  }
+
+#button_div {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-gap: 2px; /* Gap between columns */ 
+    padding-bottom: 1px;
+ }
+
+ #dash_table th,
+ #dash_table td,
+ #dash_table tr{
+     border: none;
+ }
+ 
+ 
+
