@@ -36,7 +36,7 @@ app.use("/search",searchRouter);
 app.use("/searchResult",searchresultRouter);
 
 
-//this is for catching css
+//this is for finding css and js
 app.use(express.static(__dirname + '/public'));
 
 // catch 404 and forward to error handler
