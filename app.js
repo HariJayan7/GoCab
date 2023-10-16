@@ -6,12 +6,12 @@ var logger = require('morgan');
 
 
 // add mapping here and....                 ///////////////////////////////////////
-var homeRouter = require("./routes/home");
+var indexRouter = require("./routes/index");
 var loginRouter = require("./routes/login");
 var signupRouter = require("./routes/signup");
 var dashboardRouter=require("./routes/dashboard");
 var searchRouter= require("./routes/search");
-// var searchresultRouter=require("./routes/searchresult");
+var searchresultRouter=require("./routes/searchResult");
 
 var app = express();
 
@@ -26,13 +26,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //add here tooo
-app.use('/', homeRouter);                   /////////////////////////////////////
-app.use("/index",homeRouter);
-app.use("/home",homeRouter);
+app.use('/', indexRouter);                   /////////////////////////////////////
+app.use("/index",indexRouter);
+app.use("/home",dashboardRouter);
 app.use("/login",loginRouter);
 app.use("/signup",signupRouter);
 app.use("/dashboard",dashboardRouter);
 app.use("/search",searchRouter);
+app.use("/searchResult",searchresultRouter);
 
 
 //this is for catching css
