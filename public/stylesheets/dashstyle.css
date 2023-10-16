@@ -3,7 +3,7 @@
     float: left;
     width: 50%;
     /* background-color: lightgrey; */
-    margin-top: 14%;
+    margin-top: 45px;
     margin-right: 20px;
     border-radius: 10px;
     padding: 5px;
@@ -17,10 +17,18 @@
     padding-bottom: 1px;
  }
 
+ #dash_table
+ {
+  border: 1px;
+  border-color: black;
+  border-collapse:collapse;
+  width: 100%;
+ }
  #dash_table th,
  #dash_table td,
  #dash_table tr{
-     border: none;
+     border: 1px solid black;
+     border-color: black;
  }
  
  
