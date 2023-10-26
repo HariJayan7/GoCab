@@ -47,10 +47,12 @@ function initialize()
 {
   function alreadyexists(err)
   {
+    if(err)
     console.log("already initialized");
   }
   var createpersontable="CREATE TABLE person (\
     pid varchar NOT NULL,\
+    password varchar NOT NULL,\
     name varchar NOT NULL,\
     email varchar NOT NULL,\
     phone varchar NOT NULL,\
@@ -92,9 +94,9 @@ function initialize()
   // db.run(constrant1);
   // db.run(constrant2);
 
-  const stmt = db.prepare('INSERT INTO person VALUES (?,?,?,?,?,?)');
-  stmt.run("0","root","root@gmail.com","000","0","M",alreadyexists);
-  stmt.run("1","rooti","rooti@gmail.com","0000","0","F",alreadyexists);
+  const stmt = db.prepare('INSERT INTO person VALUES (?,?,?,?,?,?,?)');
+  stmt.run("0","root","root","root@gmail.com","000","0","M",alreadyexists);
+  stmt.run("1","rooti","rooti","rooti@gmail.com","0000","0","F",alreadyexists);
   stmt.finalize();
 
   function display(err,result)
