@@ -7,7 +7,7 @@ const db = new sqlite3.Database('./my_database.db')
 
 function my_get(req,res,next)
 {
-    res.sendFile(path.join(__dirname,'../views/signup.html'));
+    res.sendFile(path.join(__dirname,'../views/newtrip.html'));
 }
 
 function alreadyexists(err)
@@ -20,15 +20,15 @@ function alreadyexists(err)
 function my_post(req,res,next)
 {
     var body=req.body;
-    var name=body.name;
-    var rollno=body.rollno;
-    var password="default";
-    var email=body.email;
-    var phno=body.phno;
-    var age=body.age;
-    var gender=body.gender;
-    const stmt = db.prepare('INSERT INTO person VALUES (?,?,?,?,?,?,?)');
-    stmt.run(rollno,password,name,email,phno,age,gender,alreadyexists);
+    var bid;
+    var etd=body.etd;
+    var start_dest=body.start_dest;
+    var final_dest=body.final_dest;
+    var cab_type=body.cab_type;
+    var curnum=1;
+    var maxnum=body.maxnum;
+    const stmt = db.prepare('INSERT INTO booking VALUES (?,?,?,?,?,?,?)');
+    stmt.run(bid,etd,start_dest,final_dest,cab_type,curnum,maxnum,alreadyexists);
     stmt.finalize();
 
     function display(err,result)
@@ -39,7 +39,7 @@ function my_post(req,res,next)
         }
         console.log(result);
     }
-    db.all('SELECT * FROM person', display);
+    db.all('SELECT * FROM booking', display);
     res.redirect("/login");
 }
 
