@@ -21,9 +21,9 @@ function my_post(req,res,next)
     var body=req.body;
     var username=body.username;
     var password=body.password;
-    console.log(username,password);
     function display(err,result)
     {
+
         if(err)
         {
             console.log("some error"+err);
@@ -35,8 +35,8 @@ function my_post(req,res,next)
         }
         else
         {
-            console.log(result);
-            if(result[0]!=null && result[0].password=="default")
+            // console.log(result);
+            if(result[0]!=null && result[0].password==password)
             res.redirect("/dashboard");
             else
             {
