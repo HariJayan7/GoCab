@@ -22,7 +22,7 @@ function my_post(req,res,next)
     var body=req.body;
     var name=body.name;
     var rollno=body.rollno;
-    var password="default";
+    var password=body.password;
     var email=body.email;
     var phno=body.phno;
     var age=body.age;
