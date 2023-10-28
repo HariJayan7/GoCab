@@ -1,16 +1,16 @@
 let searchTrip = document.getElementById('searchTrip');
-let reqDiv = document.getElementById('searchDiv');
+let reqDiv = document.getElementById('add_content');
 let newTrip = document.getElementById('newTrip');
 
+
+
 searchTrip.addEventListener('click', function() {
+  document.getElementById('searchTrip').style.backgroundColor = '#FDDA0D';
+  document.getElementById('newTrip').style.backgroundColor = '#FFFF8F';
   let data = `
     <form class="loginForm" id="searchForm" action="#" method="post">
-      <div id="button_div">
-        <button id="searchTrip" style="background-color:red;">Search Trip</button>
-        <button id="newTrip">New Trip</button>
-      </div>
       <div class="form-content">
-        <label for="start">Start:</label>
+        <label for="start">SearchStart:</label>
         <input type="text" name="start" id="start" >
 
         <label for="destination">Destination:</label>
@@ -37,14 +37,12 @@ searchTrip.addEventListener('click', function() {
 
 
 newTrip.addEventListener('click', function(){
+  document.getElementById('searchTrip').style.backgroundColor = '#FFFF8F';
+  document.getElementById('newTrip').style.backgroundColor = '#FDDA0D';
     let data = `
     <form class="loginForm" id="newTripForm" action="#" method="post">
-      <div id="button_div">
-        <button id="searchTrip">Search Trip</button>
-        <button id="newTrip" style="background-color:red;">New Trip</button>
-      </div>
       <div class="form-content">
-        <label for="start">Start:</label>
+        <label for="start">NewStart:</label>
         <input type="text" name="start" id="start" required>
 
         <label for="destination">Destination:</label>

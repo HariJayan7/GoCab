@@ -77,24 +77,24 @@ function initialize()
     FOREIGN KEY(pid) REFERENCES person(pid)\
   );"
 
-  createlistingstable="CREATE TABLE `listings` (\
-    bid int NOT NULL,\
-    pid varchar NOT NULL\
-  );"
+  // createlistingstable="CREATE TABLE `listings` (\
+  //   bid int NOT NULL,\
+  //   pid varchar NOT NULL\
+  // );"
   
   var constrant1="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk0` FOREIGN KEY (`bid`) REFERENCES `booking`(`bid`);"
   var constrant2="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk1` FOREIGN KEY (`pid`) REFERENCES `person`(`pid`);"
 
   //running the commands here
-  db.run(createpersontable);
-  db.run(createbookingtable);
-  db.run(createlistingstable);
+  db.run(createpersontable,alreadyexists);
+  db.run(createbookingtable,alreadyexists);
+  db.run(createlistingstable,alreadyexists);
   // db.run(constrant1);
   // db.run(constrant2);
 
   const stmt = db.prepare('INSERT INTO person VALUES (?,?,?,?,?,?,?)');
-  stmt.run("0","root","root","root@gmail.com","000","0","M");
-  stmt.run("1","rooti","rooti","rooti@gmail.com","0000","0","F");
+  stmt.run("0","root","root","root@gmail.com","000","0","M",alreadyexists);
+  stmt.run("1","rooti","rooti","rooti@gmail.com","0000","0","F",alreadyexists);
   stmt.finalize();
 
   function display(err,result)

@@ -97,8 +97,7 @@ function searchtrip(req,res,next)
     {
         console.log(result);
     }
-    db.all('SELECT * FROM person WHERE pid=?',username, display);
-    db.all('SELECT * FROM booking WHERE bid=? AND etd>=? AND etd<=? AND start_dest=? AND end_dest=? AND cur_num<max_num ',bid,mind,maxd,start_dest,end_dest,search_process)
+    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND end_dest=? AND cur_num<max_num ',bid,mind,maxd,start_dest,end_dest,search_process)
 }
 function my_post(req,res,next)
 {
