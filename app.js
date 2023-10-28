@@ -10,7 +10,6 @@ var indexRouter = require("./routes/index");
 var loginRouter = require("./routes/login");
 var signupRouter = require("./routes/signup");
 var dashboardRouter=require("./routes/dashboard");
-var searchRouter= require("./routes/search");
 var searchresultRouter=require("./routes/searchResult");
 
 var app = express();
@@ -32,7 +31,6 @@ app.use("/home",dashboardRouter);
 app.use("/login",loginRouter);
 app.use("/signup",signupRouter);
 app.use("/dashboard",dashboardRouter);
-app.use("/search",searchRouter);
 app.use("/searchResult",searchresultRouter);
 
 
@@ -79,10 +77,10 @@ function initialize()
     FOREIGN KEY(pid) REFERENCES person(pid)\
   );"
 
-  createlistingstable="CREATE TABLE `listings` (\
-    bid int NOT NULL,\
-    pid varchar NOT NULL\
-  );"
+  // createlistingstable="CREATE TABLE `listings` (\
+  //   bid int NOT NULL,\
+  //   pid varchar NOT NULL\
+  // );"
   
   var constrant1="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk0` FOREIGN KEY (`bid`) REFERENCES `booking`(`bid`);"
   var constrant2="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk1` FOREIGN KEY (`pid`) REFERENCES `person`(`pid`);"
@@ -104,6 +102,7 @@ function initialize()
     console.log(result);
   }
   db.all('SELECT * FROM person', display);
+
 }
 
 
