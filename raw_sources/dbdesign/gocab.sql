@@ -16,7 +16,7 @@ CREATE TABLE listings (
     FOREIGN KEY(pid) REFERENCES person(pid)
   );
 
-CREATE TABLE `booking` (
+CREATE TABLE booking (
 	`bid` int NOT NULL,
 	`etd` DATETIME NOT NULL,
 	`start_dest` varchar NOT NULL,

@@ -12,12 +12,15 @@ function my_get(req,res,next)
         console.log(result);
         res.sendFile(path.join(__dirname,'../views/main.html'));
     }
-    db.all("SELECT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
+    db.all("SELECT DISTINCT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
 }
+
+
+
 function addlisting(bid,pid)
 {
-    const stmt=db.prepare("INSERT INTO listings VALUES (?,?)");
-    stmt.run(bid,pid);
+    const stmt=db.prepare("INSERT INTO listings SELECT ?,? WHERE NOT EXISTS (SELECT * FROM listings WHERE bid=? AND pid=?)");
+    stmt.run(bid,pid,bid,pid);
     stmt.finalize();
 }
 function alreadyexists(err)
@@ -56,7 +59,7 @@ function newtrip(req,res,next)
     var etd=body.appointment;
     var start_dest=body.start;
     var final_dest=body.destination;
-    var cab_type=body.type;
+    var cab_type=body.cabtype;
     var curnum=1;
     var maxnum=body.max;
     var bid=-1;
@@ -88,24 +91,34 @@ function newtrip(req,res,next)
     
     
 }
-
-
 function searchtrip(req,res,next)
 {
     var body=req.body;
-    var etd=body.appointment;
+    var mind=body.appointment[0];
+    var maxd=body.appointment[1];
     var start_dest=body.start;
     var final_dest=body.destination;
     function search_process(err,result)
     {
         console.log(result);
+        // res.redirect("/searchResult");
     }
-    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,end_dest,search_process)
+    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,final_dest,search_process)
 }
 function my_post(req,res,next)
 {
-    newtrip(req,res,next);
-    // searchtrip(req,res,next);
+    var type=req.body.type;
+    console.log(req.body);
+    console.log(req.body.type);
+    if(type=="1")
+    searchtrip(req,res,next);
+    else
+    {
+        if(type=="2")
+        newtrip(req,res,next);
+        else
+        console.log("type error:",type);
+    }
     res.redirect("/dashboard");
 }
 router.get('/', my_get);

@@ -10,21 +10,18 @@ searchTrip.addEventListener('click', function() {
   let data = `
     <form class="loginForm" id="searchForm" action="#" method="post">
       <div class="form-content">
-        <label for="start">SearchStart:</label>
+        <label for="start">SearchStart :</label>
         <input type="text" name="start" id="start" >
-
-        <label for="destination">Destination:</label>
+        <input style = "display:none" type="text" name="type" id="fromsearch" value="1">
+        <label for="destination">Destination :</label>
         <input type="text" name="destination" id="destination" >
 
-        <label for="appointment">Select Date and Time:</label>
+        <label for="appointment">Search From :</label>
         <input type="datetime-local" id="appointment" name="appointment">
 
-        <label for="type">Taxi Type:</label>
-        <input type="text" name="type" id="type">
-
-        <label for="max">Max Limit:</label>
-        <input type="text" name="max" id="max">
-
+        <label for="appointment">Search Till :</label>
+        <input type="datetime-local" id="appointment" name="appointment">
+        
         <input type="submit" value="Submit">
       </div>
     </form>
@@ -44,7 +41,7 @@ newTrip.addEventListener('click', function(){
       <div class="form-content">
         <label for="start">NewStart:</label>
         <input type="text" name="start" id="start" required>
-
+        <input style = "display:none" type="text" name="type" id="fromsearch" value="2">
         <label for="destination">Destination:</label>
         <input type="text" name="destination" id="destination" required>
 
@@ -52,7 +49,7 @@ newTrip.addEventListener('click', function(){
         <input type="datetime-local" id="appointment" name="appointment" required>
 
         <label for="type">Taxi Type:</label>
-        <input type="text" name="type" id="type" required>
+        <input type="text" name="cabtype" id="type" required>
 
         <label for="max">Max Limit:</label>
         <input type="text" name="max" id="max" required>
