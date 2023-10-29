@@ -1,17 +1,20 @@
-CREATE TABLE `person` (
-	`pid` varchar NOT NULL,
-	`name` varchar NOT NULL,
-	`email` varchar NOT NULL,
-	`phone` varchar NOT NULL,
-	`age` int NOT NULL,
-	`gender` varchar NOT NULL,
-	PRIMARY KEY (`pid`)
-);
+CREATE TABLE person (
+    pid varchar NOT NULL,
+    password varchar NOT NULL,
+    name varchar NOT NULL,
+    email varchar NOT NULL,
+    phone varchar NOT NULL,
+    age int NOT NULL,
+    gender varchar NOT NULL,
+    PRIMARY KEY (pid)
+  );
 
-CREATE TABLE `listings` (
-	`bid` int NOT NULL,
-	`pid` varchar NOT NULL
-);
+CREATE TABLE listings (
+    bid int NOT NULL,
+    pid varchar NOT NULL,
+    FOREIGN KEY(bid) REFERENCES booking(bid),
+    FOREIGN KEY(pid) REFERENCES person(pid)
+  );
 
 CREATE TABLE `booking` (
 	`bid` int NOT NULL,
@@ -23,11 +26,6 @@ CREATE TABLE `booking` (
 	`max_num` int NOT NULL,
 	PRIMARY KEY (`bid`)
 );
-
-ALTER TABLE `listings` ADD CONSTRAINT `listings_fk0` FOREIGN KEY (`bid`) REFERENCES `booking`(`bid`);
-
-ALTER TABLE `listings` ADD CONSTRAINT `listings_fk1` FOREIGN KEY (`pid`) REFERENCES `person`(`pid`);
-
 
 
 

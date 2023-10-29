@@ -6,7 +6,13 @@ const db = new sqlite3.Database('./my_database.db')
 
 function my_get(req,res,next)
 {
-    res.sendFile(path.join(__dirname,'../views/main.html'));
+    var pid="B200825CS";
+    function get_trips(err,result)
+    {
+        console.log(result);
+        res.sendFile(path.join(__dirname,'../views/main.html'));
+    }
+    db.all("SELECT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
 }
 function addlisting(bid,pid)
 {
@@ -90,14 +96,11 @@ function searchtrip(req,res,next)
     var etd=body.appointment;
     var start_dest=body.start;
     var final_dest=body.destination;
-    var cab_type=body.type;
-    var maxnum=body.max;
-    var bid=-1;
     function search_process(err,result)
     {
         console.log(result);
     }
-    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND end_dest=? AND cur_num<max_num ',bid,mind,maxd,start_dest,end_dest,search_process)
+    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,end_dest,search_process)
 }
 function my_post(req,res,next)
 {
