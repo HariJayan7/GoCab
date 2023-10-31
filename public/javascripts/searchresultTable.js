@@ -1,58 +1,3 @@
-// const dataArray = [
-//     {
-//         "from": "San Francisco",
-//         "to": "Miami",
-//         "departure": "2023-10-16 12:30",
-//         "nop": 2,
-//         "ml": 5,
-//         "tripid": "Trip2"
-//       },
-//       {
-//         "from": "San Diego",
-//         "to": "Gotham",
-//         "departure": "2023-11-11 12:31",
-//         "nop": 1,
-//         "ml": 4,
-//         "tripid": "Trip3"
-//       }
-//       ,
-//       {
-//         "from": "San Diego",
-//         "to": "Gotham",
-//         "departure": "2023-11-11 12:31",
-//         "nop": 1,
-//         "ml": 4,
-//         "tripid": "Trip4"
-//       }
-//       ,
-//       {
-//         "from": "San Diego",
-//         "to": "Gotham",
-//         "departure": "2023-11-11 12:31",
-//         "nop": 1,
-//         "ml": 4,
-//         "tripid": "Trip5"
-//       }
-//       ,
-//       {
-//         "from": "San Diego",
-//         "to": "Gotham",
-//         "departure": "2023-11-11 12:31",
-//         "nop": 1,
-//         "ml": 4,
-//         "tripid": "Trip6"
-//       }
-//       ,
-//       {
-//         "from": "San Diego",
-//         "to": "Gotham",
-//         "departure": "2023-11-11 12:31",
-//         "nop": 1,
-//         "ml": 4,
-//         "tripid": "Trip7"
-//       }
-// ]
-
 var dataArray;
 
 function bookSearch(bookingId) {
@@ -142,6 +87,7 @@ function closeModal() {
     var overlay = document.getElementById('overlay');
     modal.style.display = 'none';
     overlay.style.display = 'none';
+    location.reload();
 }
 
 getDataArray();
