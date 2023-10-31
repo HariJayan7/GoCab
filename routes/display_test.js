@@ -6,10 +6,6 @@ const db = new sqlite3.Database('./my_database.db')
 
 
 
-
-
-
-
 function display_all_booking()
 {
     function display(err,result)
@@ -48,3 +44,15 @@ function display_all_people()
     }
     db.all('SELECT * FROM person', display);
 }
+
+
+function my_get(req,res,next)
+{
+    display_all_booking();
+    display_all_listings();
+    display_all_people();
+    res.send("CHECK LOG");
+    
+}
+router.get('/', my_get);
+module.exports = router;

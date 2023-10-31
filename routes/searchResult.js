@@ -99,6 +99,24 @@ function remove_listing(bid,pid)
     stmt.run(pid,bid);
     stmt.finalize();
 }
+// function if_listing_exists(bid,pid)
+// {
+//     function check(err,result)
+//     {
+//         if(err)
+//         {
+//             console.log("Error fetching the listing "+err);
+//         }
+//         else
+//         {
+//             if(result[0]==null)
+//             return -1;
+//             else
+//             return 1;
+//         }
+//     }
+//     db.all("SELECT * FROM listings WHERE listings.pid=? AND listings.bid=?",pid,bid,check);
+// }
 function unbook_trip(req,res,next)
 {
     var body=req.body;
@@ -119,7 +137,7 @@ function unbook_trip(req,res,next)
             {
                 var cur_num=result[0]["cur_num"];
                 remove_listing(bid,pid);
-                update_booking(bid);
+                update_booking(bid,cur_num);
             }
         }
         res.redirect("/dashboard");

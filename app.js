@@ -11,6 +11,7 @@ var loginRouter = require("./routes/login");
 var signupRouter = require("./routes/signup");
 var dashboardRouter=require("./routes/dashboard");
 var searchresultRouter=require("./routes/searchResult");
+var displaytablestestRouter=require("./routes/display_test");
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use("/login",loginRouter);
 app.use("/signup",signupRouter);
 app.use("/dashboard",dashboardRouter);
 app.use("/searchResult",searchresultRouter);
+app.use("/display_test",displaytablestestRouter);
 
 
 //this is for finding css and js
