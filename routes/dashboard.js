@@ -3,15 +3,28 @@ const path = require('path');
 var router = express.Router();
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./my_database.db')
+const jwt = require("jsonwebtoken");
 
 function my_get(req,res,next)
 {
     res.sendFile(path.join(__dirname,'../views/main.html'));
 }
 
+function authenticateToken(req, res, next) {
+  const token = req.cookies.token;
+  try {
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = user;
+    next();
+  } catch (err) {
+    res.clearCookie("token");
+    return res.redirect("/");
+  }
+}
+
 function my_get_json_dashboard(req,res,next)
 {
-    var pid="B200825CS";
+    var pid=req.user;
     function get_trips(err,result)
     {
         console.log(result);
@@ -129,7 +142,7 @@ function my_post(req,res,next)
     }
 }
 router.get('/', my_get);
-router.get('/get_json',my_get_json_dashboard);
+router.get('/get_json',authenticateToken,my_get_json_dashboard);
 router.post('/',my_post);
 
 module.exports = router;
