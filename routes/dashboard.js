@@ -9,22 +9,6 @@ function my_get(req,res,next)
     res.sendFile(path.join(__dirname,'../views/main.html'));
 }
 
-function my_get_json_dashboard(req,res,next)
-{
-    var pid="B200825CS";
-    function get_trips(err,result)
-    {
-        console.log(result);
-        // res.sendFile(path.join(__dirname,'../views/main.html'));
-        res.send(result);
-        
-    }
-    db.all("SELECT DISTINCT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
-}
-function alreadyexists(err)
-{
-    console.log("This booking id already exists"+err);
-}
 function display_all_booking()
 {
     function display(err,result)
@@ -50,6 +34,23 @@ function display_all_listings()
         console.log(result);
     }
     db.all('SELECT * FROM listings', display);
+}
+
+function my_get_json_dashboard(req,res,next)
+{
+    var pid="B200825CS";
+    function get_trips(err,result)
+    {
+        console.log(result);
+        // res.sendFile(path.join(__dirname,'../views/main.html'));
+        res.send(result);
+        
+    }
+    db.all("SELECT DISTINCT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
+}
+function alreadyexists(err)
+{
+    console.log("This booking id already exists"+err);
 }
 
 
