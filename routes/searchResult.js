@@ -95,6 +95,7 @@ function searchtrip(req,res,next)
         console.log(result);
         res.send(result);
     }
+    //booking
     db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,final_dest,search_process)
 }
 function my_get(req,res,next)
