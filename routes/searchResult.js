@@ -3,6 +3,9 @@ const path = require("path");
 var router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./my_database.db");
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
 function addlisting(bid, pid) {
   const stmt = db.prepare(
     "INSERT INTO listings SELECT ?,? WHERE NOT EXISTS (SELECT * FROM listings WHERE bid=? AND pid=?)"
@@ -39,7 +42,9 @@ function book_trip(req, res, next) {
     } else {
       if (result[0] == null) console.log("No space in this booking");
       else {
-        var pid = req.user["name"];
+        const token = req.cookies.token;
+        const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        var pid = user["name"];
         var cur_num = result[0]["cur_num"];
         function bookit(err, result) {
           if (result[0] == null) {
@@ -90,6 +95,8 @@ function remove_listing(bid, pid) {
 function unbook_trip(req, res, next) {
   var body = req.body;
   //   var pid = "B200014CS"; // need to change here
+  const token = req.cookies.token;
+  const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   var pid = req.user["name"];
   var bid = body["booking_id"];
   db.all("SELECT * FROM booking WHERE booking.bid=?", bid, my_processo);

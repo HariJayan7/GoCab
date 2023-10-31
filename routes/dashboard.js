@@ -12,7 +12,9 @@ function my_get(req, res, next) {
 
 function my_get_json_dashboard(req, res, next) {
   console.log("hello");
-  var pid = req.user["name"];
+  const token = req.cookies.token;
+  const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  var pid = user["name"];
   console.log(pid);
   // var pid="b20019cs";
   function get_trips(err, result) {
@@ -91,7 +93,9 @@ function newtrip(req, res, next) {
   function my_process(err, result) {
     // var pid="B200825CS";
     console.log("hello");
-    var pid = req.user["name"];
+    const token = req.cookies.token;
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    var pid = user["name"];
     console.log(pid);
     if (err) {
       console.log("Error while getting old booking ID from database " + err);
@@ -131,8 +135,9 @@ function my_post(req, res, next) {
   var type = req.body.type;
   console.log(req.body);
   console.log(req.body.type);
-  if (type == "1") redirect_searchtrip(req, res, next);
-  else {
+  if (type == "1") {
+    redirect_searchtrip(req, res, next);
+  } else {
     if (type == "2") newtrip(req, res, next);
     else console.log("type error:", type);
     res.redirect("/dashboard");
