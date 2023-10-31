@@ -1,12 +1,127 @@
 var express = require('express');
 const path = require('path');
 var router = express.Router();
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database('./my_database.db')
 
 function my_get(req,res,next)
 {
-    res.sendFile(path.join(__dirname,'../views/main.html'));
+    var pid="B200825CS";
+    function get_trips(err,result)
+    {
+        console.log(result);
+        res.sendFile(path.join(__dirname,'../views/main.html'));
+    }
+    db.all("SELECT DISTINCT * FROM  booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?",pid,get_trips);
 }
 
+
+
+function addlisting(bid,pid)
+{
+    const stmt=db.prepare("INSERT INTO listings SELECT ?,? WHERE NOT EXISTS (SELECT * FROM listings WHERE bid=? AND pid=?)");
+    stmt.run(bid,pid,bid,pid);
+    stmt.finalize();
+}
+function alreadyexists(err)
+{
+    console.log("already exists"+err);
+}
+function display_all_booking()
+{
+    function display(err,result)
+    {
+        if(err)
+        {
+            console.log("some error"+err);
+        }
+        console.log("Booking Table:\n");
+        console.log(result);
+    }
+    db.all('SELECT * FROM booking', display);
+}
+function display_all_listings()
+{
+    function display(err,result)
+    {
+        if(err)
+        {
+            console.log("some error"+err);
+        }
+        console.log("Listing Table:\n");
+        console.log(result);
+    }
+    db.all('SELECT * FROM listings', display);
+}
+function newtrip(req,res,next)
+{
+    var body=req.body;
+    var etd=body.appointment;
+    var start_dest=body.start;
+    var final_dest=body.destination;
+    var cab_type=body.cabtype;
+    var curnum=1;
+    var maxnum=body.max;
+    var bid=-1;
+    function my_process(err,result)
+    {
+        if(err)
+        {
+            console.log("error here: "+err);
+        }
+        else
+        {
+            var p=result[0]['MAX(bid)'];
+            console.log(p);
+            if(p==null)
+            bid=1;
+            else
+            bid=p+1;
+            console.log("this is the bid now",bid);
+            const stmt = db.prepare('INSERT INTO booking VALUES (?,?,?,?,?,?,?)');
+            stmt.run(bid,etd,start_dest,final_dest,cab_type,curnum,maxnum,alreadyexists);
+            stmt.finalize();
+            var pid="B200825CS";
+            addlisting(bid,pid);
+            display_all_booking();
+            display_all_listings();
+        }
+    }
+    db.all('SELECT MAX(bid) FROM booking',my_process);
+    
+    
+}
+function searchtrip(req,res,next)
+{
+    var body=req.body;
+    var mind=body.appointment[0];
+    var maxd=body.appointment[1];
+    var start_dest=body.start;
+    var final_dest=body.destination;
+    function search_process(err,result)
+    {
+        console.log(result);
+        // res.redirect("/searchResult");
+    }
+    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,final_dest,search_process)
+}
+function my_post(req,res,next)
+{
+    var type=req.body.type;
+    console.log(req.body);
+    console.log(req.body.type);
+    if(type=="1")
+    searchtrip(req,res,next);
+    else
+    {
+        if(type=="2")
+        newtrip(req,res,next);
+        else
+        console.log("type error:",type);
+    }
+    res.redirect("/dashboard");
+}
 router.get('/', my_get);
+router.post('/',my_post);
 
 module.exports = router;

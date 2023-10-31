@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -57,40 +58,70 @@ type="text/css">
                 padding: 20px;
                 font-size: 4vh;
             }
-
+            .section1{
+                min-height: 100vh;
+                padding-top: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 0px;
+                font-size: 4vh;
+            }
+            .section2{
+                min-height: 100vh;
+                padding-top: 0px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 0px;
+                font-size: 4vh;
+            }
             #myButton:active {
                 background-color: red;          
              }
+            #newTrip {
+                background-color: #FFFF8F	;
+            }
+            #searchTrip{
+                background-color: #FFFF8F	;
+            } 
              #canvasContainer {
                 position: absolute;
                 z-index: -1;
                 top: 0;
                 left: 0;
              }
+             #searchDiv{
+                display:flex;
+                flex-direction: column;
+             }
+             .scrollable-table {
+                max-height: 300px;
+                overflow-y: auto;
+            }
         </style>
     </head>
 
     <body>
         <!-- <script type="module" src="js/main.js"></script> -->
         <div id="canvasContainer"></div>
-        <nav><button style="font-size:25px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-success">
-            Logout
-        </button></nav>
-        <section>
-            <p style="font-size: 100px;">Dashboard</p>
+        <section class = "section1">
+            <nav style="display: flex;flex-direction: row;">
+                <p style="font-size: 100px;">Dashboard</p>
+                <button style="margin-left:725px;font-size:25px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-success">
+                Logout
+            </button></nav>            
             <div id="dash_div">
                 <div id="button_div">
-                <button id="current" style="background-color: yellow;"type="button" class="btn " onclick="showCurrent();">Current</button>
+                <button id="current" style="background-color: #FDDA0D;"type="button" class="btn " onclick="showCurrent();">Current</button>
                 <button id="history" style="background-color: lightyellow;"type="button" class="btn " onclick="showHistory();">History</button>
                 </div>
-                <div style="background-color: yellow;"id="table_div">
+                <div class="scrollable-table" style="background-color: #FDDA0D;"id="table_div">
                     <table id="dash_table" class="table">
                         <thead>
                         <tr>
                             <th scope="col">Trip ID</th>
                             <th scope="col">From</th>
                             <th scope="col">To</th>
-                            <th scope="col">Date 'n Time</th>
+                            <th scope="col">Date n Time</th>
                             <th scope="col">Contact</th>
                         </tr>
                         </thead>
@@ -135,15 +166,18 @@ type="text/css">
                 </div>
             </div>
         </section> 
-        <section>
+        <section class="section2">
             <p style="font-size: 100px;text-align: right;">New trip</p>
             <div id="searchDiv" class="container" style="margin-left:600px;">
-                <form class="loginForm" id="searchForm" action="#" method="post" style="width: 500px;">
-                    <div id="button_div">
-                        <button type="button" id="searchTrip">Search Trip</button>
-                        <button type="button" id="newTrip">New Trip</button>
-                    </div>
-                </form>
+                <div id="button_div_2">
+                    <button type="button" id="searchTrip">Search Trip</button>
+                    <button type="button" id="newTrip">New Trip</button>
+                </div>
+                <div id="add_content">
+
+                </div>
+                <!-- <form class="loginForm" id="searchForm" action="#" method="post" style="width: 500px;">
+                </form> -->
             </div>
         </section>  
         <script type="module" src="javascripts/main.js"></script> 
