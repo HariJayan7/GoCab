@@ -1,50 +1,35 @@
-var express = require('express');
-const path = require('path');
+var express = require("express");
+const path = require("path");
 var router = express.Router();
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('./my_database.db')
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./my_database.db");
 
-
-
-
-
-
-
-function display_all_booking()
-{
-    function display(err,result)
-    {
-        if(err)
-        {
-            console.log("Error While displaying bookings"+err);
-        }
-        console.log("Booking Table:\n");
-        console.log(result);
+function display_all_booking() {
+  function display(err, result) {
+    if (err) {
+      console.log("Error while displaying bookings" + err);
     }
-    db.all('SELECT * FROM booking', display);
+    console.log("Booking Table:\n");
+    console.log(result);
+  }
+  db.all("SELECT * FROM booking", display);
 }
-function display_all_listings()
-{
-    function display(err,result)
-    {
-        if(err)
-        {
-            console.log("Error While displaying listings"+err);
-        }
-        console.log("Listing Table:\n");
-        console.log(result);
+function display_all_listings() {
+  function display(err, result) {
+    if (err) {
+      console.log("Error while displaying listings" + err);
     }
-    db.all('SELECT * FROM listings', display);
+    console.log("Listing Table:\n");
+    console.log(result);
+  }
+  db.all("SELECT * FROM listings", display);
 }
-function display_all_people()
-{
-    function display(err,result)
-    {
-        if(err)
-        {
-            console.log("Error While displaying people"+err);
-        }
-        console.log(result);
+function display_all_people() {
+  function display(err, result) {
+    if (err) {
+      console.log("Error while displaying people" + err);
     }
-    db.all('SELECT * FROM person', display);
+    console.log(result);
+  }
+  db.all("SELECT * FROM person", display);
 }

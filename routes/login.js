@@ -1,42 +1,45 @@
-var express = require('express');
-const path = require('path');
+require("dotenv").config();
+var express = require("express");
+const path = require("path");
 var router = express.Router();
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database('./my_database.db')
-function my_get(req,res,next)
-{
-    res.sendFile(path.join(__dirname,'../views/login.html'));
+const sqlite3 = require("sqlite3").verbose();
+const db = new sqlite3.Database("./my_database.db");
+const jwt = require("jsonwebtoken");
+
+function my_get(req, res, next) {
+  res.sendFile(path.join(__dirname, "../views/login.html"));
 }
-function my_post(req,res,next)
-{
-    var body=req.body;
-    var username=body.username;
-    var password=body.password;
-    function check_credentials(err,result)
-    {
-        if(err)
-        {
-            console.log("GOT AN ERROR WHILE LOGGING IN "+err);
-        }
-        else
-        {
-            if(result[0]!=null && result[0].password==password)
-            res.redirect("/dashboard");
-            else
-            {
-                console.log("Username not found");
-                res.redirect("/login");
-            }
-        }
-        
+function my_post(req, res, next) {
+  var body = req.body;
+  var username = body.username;
+  var password = body.password;
+  function check_credentials(err, result) {
+    if (err) {
+      console.log("Login Error " + err);
+    } else {
+      if (result[0] != null && result[0].password == password) {
+        console.log("Username and password matched");
+        console.log(username);
+        const user = { name: username };
+        console.log(user["name"]);
+        //send user to db
+        const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        res.cookie("token", token);
+        //   res.json({ accessToken: token });
+
+        res.redirect("/dashboard");
+        //   next();
+      } else {
+        console.log("Username Not Found");
+        res.redirect("/login");
+      }
     }
+  }
 
-    db.all('SELECT * FROM person WHERE pid=?',username, check_credentials);
-    
+  db.all("SELECT * FROM person WHERE pid=?", username, check_credentials);
 }
 
-
-router.get('/', my_get);
-router.post("/",my_post);
+router.get("/", my_get);
+router.post("/", my_post); //,(res,req)=>{res.redirect("/dashboard")});
 
 module.exports = router;
