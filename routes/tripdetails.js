@@ -94,7 +94,7 @@ function my_get(req,res,next)
 function my_get_json(req,res,next)
 {
     var bid=req.query.bid
-    db.all("SELECT * FROM booking INNER JOIN listings ON booking.bid=listings.bid WHERE booking.bid=?",bid,sendjson);
+    db.all("SELECT * FROM (booking INNER JOIN listings ON booking.bid=listings.bid) INNER JOIN person ON person.pid=listings.pid WHERE booking.bid=?",bid,sendjson);
     function sendjson(err,result)
     {
         if(err)

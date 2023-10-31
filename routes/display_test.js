@@ -48,9 +48,9 @@ function display_all_people()
 
 function my_get(req,res,next)
 {
+    display_all_people();
     display_all_booking();
     display_all_listings();
-    display_all_people();
     res.send("CHECK LOG");
     
 }

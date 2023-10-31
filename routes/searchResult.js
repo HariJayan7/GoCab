@@ -89,14 +89,13 @@ function searchtrip(req,res,next)
     var maxd=req.query.et;
     var start_dest=req.query.start;
     var final_dest=req.query.destination;
-    console.log(mind,maxd,start_dest,final_dest);
+    var pid="B200014CS"
+    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num AND bid NOT IN (SELECT booking.bid FROM booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?)',mind,maxd,start_dest,final_dest,pid,search_process);
     function search_process(err,result)
     {
         console.log(result);
         res.send(result);
     }
-    //booking
-    db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ',mind,maxd,start_dest,final_dest,search_process)
 }
 function my_get(req,res,next)
 {
