@@ -20,17 +20,15 @@ type="text/css">
             body {
                 overflow-x: hidden;
                 margin: 0px;
-                font-family: ArcadeIN;
                 color :black;
                 background-color: #87ceeb;
+                font-size: 12px;
             }
-
             canvas {
                 position: fixed;
                 top: 0;
                 left: 0;
             }
-
             #scrollProgress {
                 position: fixed;
                 bottom: 10px;
@@ -39,26 +37,37 @@ type="text/css">
                 font-size: 3vh;
             }
             @keyframes blink {
-            0% {
-                opacity: 1;
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.2;
+                }
+                100% {
+                    opacity: 1;
+                }
             }
-            50% {
-                opacity: 0.2;
-            }
-            100% {
-                opacity: 1;
-            }
-            }
-
             .blinking-text {
-            animation: blink 1s infinite; /* 1s duration, infinite iterations */
+            animation: blink 1s infinite;
             }
             section {
                 min-height: 100vh;
                 padding: 20px;
-                font-size: 4vh;
             }
-
+            .section1{
+                min-height: 100vh;
+                padding-top: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 0px;
+            }
+            .section2{
+                min-height: 100vh;
+                padding-top: 0px;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-bottom: 0px;
+            }
             #myButton:active {
                 background-color: red;          
              }
@@ -78,87 +87,53 @@ type="text/css">
                 display:flex;
                 flex-direction: column;
              }
+             .scrollable-table {
+                max-height: 300px;
+                overflow-y: auto;
+            }
         </style>
     </head>
 
     <body>
-        <!-- <script type="module" src="js/main.js"></script> -->
         <div id="canvasContainer"></div>
-        <nav><button style="font-size:25px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-success">
-            Logout
-        </button></nav>
-        <section>
-            <p style="font-size: 100px;">Dashboard</p>
-            
+        <section class = "section1">
+            <nav style="display: flex;flex-direction: row;">
+                <p style="font-family: ArcadeIN;font-size: 100px;">Dashboard</p>
+                <button style="margin-left:725px;font-size:14px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-success">
+                Logout
+            </button></nav>            
             <div id="dash_div">
                 <div id="button_div">
-                <button id="current" style="background-color: yellow;"type="button" class="btn " onclick="showCurrent();">Current</button>
-                <button id="history" style="background-color: lightyellow;"type="button" class="btn " onclick="showHistory();">History</button>
+                <button id="current" style="background-color: #FDDA0D;"type="button" class="btn " onclick="showCurrent();">Current</button>
+                <button id="history" style="background-color: #FFFF8F"type="button" class="btn " onclick="showHistory();">History</button>
                 </div>
-                <div style="background-color: yellow;"id="table_div">
-                    <table id="dash_table" class="table">
+                <div class="scrollable-table" style="background-color: lightgoldenrodyellow;"id="table_div">
+                    <table  id="dash_table" class="table">
                         <thead>
                         <tr>
                             <th scope="col">Trip ID</th>
                             <th scope="col">From</th>
                             <th scope="col">To</th>
-                            <th scope="col">Date 'n Time</th>
-                            <th scope="col">Contact</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>NITC</td>
-                            <td>Airport</td>
-                            <td>12/11/2023 11:58:02</td>
-                            <td>789654123</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>NITC</td>
-                            <td>Railway St.</td>
-                            <td>13/11/2023 10:51:12</td>
-                            <td>789654123</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Airport</td>
-                            <td>F-Hostel</td>
-                            <td>12/11/2023 11:58:02</td>
-                            <td>789654123</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>NITC</td>
-                            <td>Airport</td>
-                            <td>12/11/2023 11:58:02</td>
-                            <td>789654123</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>NITC</td>
-                            <td>Airport</td>
-                            <td>12/11/2023 11:58:02</td>
-                            <td>789654123</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </section> 
-        <section>
-            <p style="font-size: 100px;text-align: right;">New trip</p>
-            <div id="searchDiv" class="container" style="margin-left:600px;">
+        <section class="section2">
+            <p style="font-family: ArcadeIN;font-size: 100px;text-align:right;margin-right:50px;">New trip</p>
+            <div id="searchDiv" class="container" style="margin-left:625px;">
                 <div id="button_div_2">
                     <button type="button" id="searchTrip">Search Trip</button>
                     <button type="button" id="newTrip">New Trip</button>
                 </div>
                 <div id="add_content">
-
                 </div>
-                <!-- <form class="loginForm" id="searchForm" action="#" method="post" style="width: 500px;">
-                </form> -->
             </div>
         </section>  
         <script type="module" src="javascripts/main.js"></script> 
