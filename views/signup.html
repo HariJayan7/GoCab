@@ -1,113 +1,175 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"
-    type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="stylesheets/login.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="stylesheets/login.css" />
     <style>
-        .nes-progress {
-          height: 25px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background: #fff;
-            border: 1px solid #ccc;
-            z-index: 1;
-            border-radius: 10px;
-        }
+      .nes-progress {
+        height: 25px;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #ccc;
+        z-index: 1;
+        border-radius: 10px;
+      }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 0;
-        }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 0;
+      }
 
-        .error {
-            color: red;
-        }
-        .form-row{
-          display: flex;
-          flex-direction: row;
-        }
-        .form-column{
-          display: flex;
-          flex-direction: column;
-        }
-        body {
-                overflow-x: hidden;
-                margin: 0px;
-                color :black;
-                background-color: #87ceeb;
-            }  
-      </style>
-</head>
-<body>
+      .error {
+        color: red;
+      }
+      .form-row {
+        display: flex;
+        flex-direction: row;
+      }
+      .form-column {
+        display: flex;
+        flex-direction: column;
+      }
+      body {
+        overflow-x: hidden;
+        margin: 0px;
+        color: black;
+        background-color: #87ceeb;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <form class="loginForm" action="#" method="post" onsubmit="validateForm(event)">
-          <div class="form-content">
-            <h1 style="text-align: center; margin-bottom: 15px;">GoCab</h1>
-            <h3 style="text-align: center; margin-bottom: 15px;">Enter Details</h3>
+      <form
+        class="loginForm"
+        action="#"
+        method="post"
+        onsubmit="validateForm(event)"
+      >
+        <div class="form-content">
+          <h1 style="text-align: center; margin-bottom: 15px">GoCab</h1>
+          <h3 style="text-align: center; margin-bottom: 15px">Enter Details</h3>
 
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" placeholder="John Doe" required>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="John Doe"
+            required
+          />
 
-            <label for="rollno">Roll Number:</label>
-            <input type="text" name="rollno" id="rollno" placeholder="B200***CS" required>
-            
-            <label for="email">NITC Email:</label>
-            <input type="email" name="email" id="email" placeholder="xyz@nitc.ac.in" required>
+          <label for="rollno">Roll Number:</label>
+          <input
+            type="text"
+            name="rollno"
+            id="rollno"
+            placeholder="B200***CS"
+            required
+          />
 
-            <div class="form-row">
-              <div class="form-column">
-                <label for="phno">Phone Number:</label>
-                <input type="text" name="phno" id="phno" placeholder="79079*****" required>
-              </div>
-              <div class="form-column">            
-                <label for="age">Age:</label>
-                <input type="text" name="age" id="age" placeholder="22" required>
-              </div>
-              
-              <div class="form-column">
-                <label for="gender">Gender:</label>
-                <input type="text" name="gender" id="gender" placeholder="Male" required>
-              </div>
-            </div>            
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" placeholder="password" required>
-            
-            <label for="password">Confirm Password:</label>
-            <input type="password" name="cpassword" id="confirmpassword" placeholder="password" required>
+          <label for="email">NITC Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="xyz@nitc.ac.in"
+            required
+          />
 
-            <input type="submit" value="Submit">
+          <div class="form-row">
+            <div class="form-column">
+              <label for="phno">Phone Number:</label>
+              <input
+                type="text"
+                name="phno"
+                id="phno"
+                placeholder="79079*****"
+                required
+              />
+            </div>
+            <div class="form-column">
+              <label for="age">Age:</label>
+              <input
+                type="text"
+                name="age"
+                id="age"
+                placeholder="22"
+                required
+              />
+            </div>
+
+            <div class="form-column">
+              <label for="gender">Gender:</label>
+              <input
+                type="text"
+                name="gender"
+                id="gender"
+                placeholder="Male"
+                required
+              />
+            </div>
           </div>
-        </form>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="password"
+            required
+          />
+
+          <label for="password">Confirm Password:</label>
+          <input
+            type="password"
+            name="cpassword"
+            id="confirmpassword"
+            placeholder="password"
+            required
+          />
+
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
     </div>
 
-        <!-- Modal -->
-        <div id="myModal" class="modal">
-          <p class="error">PASSWORDS DO NOT MATCH</p>
-          <button onclick="closeModal()">Close</button>
-      </div>
-  
-      <!-- Overlay -->
-      <div id="overlay" class="overlay"></div>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <p class="error">PASSWORDS DO NOT MATCH</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
 
-<script src="javascripts/password.js"></script>
-</body>
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <script src="javascripts/password.js"></script>
+  </body>
 </html>

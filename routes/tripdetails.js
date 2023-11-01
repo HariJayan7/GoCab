@@ -63,11 +63,12 @@ function unbook_trip(req, res, next) {
         // update_booking(bid,cur_num);
       }
     }
-    res.redirect("/dashboard");
+    console.log("UNBOOKING DONE");
   }
 }
 function my_post(req, res, next) {
   unbook_trip(req, res, next);
+  res.redirect("/dashboard");
 }
 
 function my_get(req, res, next) {

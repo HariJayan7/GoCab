@@ -1,82 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="stylesheets/font.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"
-type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-<link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="stylesheets/font.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
 
-        <title>GoCab</title>
-        <style>
-            body {
-                overflow-x: hidden;
-                margin: 0px;
-                font-family: ArcadeIN;
-                color :black;
-                background-image: url(images/bg.png);background-size: cover;
-            }
+    <title>GoCab</title>
+    <style>
+      body {
+        overflow-x: hidden;
+        margin: 0px;
+        font-family: ArcadeIN;
+        color: black;
+        background-image: url(images/bg.png);
+        background-size: cover;
+      }
 
-            #canvasContainer {
-                position: absolute;
-                z-index: -1;
-                top: 0;
-                left: 0;
-             }
+      #canvasContainer {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+      }
 
-            #scrollProgress {
-                position: fixed;
-                bottom: 10px;
-                left: 10px;
-                z-index: 99;
-                font-size: 3vh;
-            }
-            @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.2;
-            }
-            100% {
-                opacity: 1;
-            }
-            }
+      #scrollProgress {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 99;
+        font-size: 3vh;
+      }
+      @keyframes blink {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
 
-            .blinking-text {
-            animation: blink 1s infinite; /* 1s duration, infinite iterations */
-            }
-        </style>
-    </head>
+      .blinking-text {
+        animation: blink 1s infinite; /* 1s duration, infinite iterations */
+      }
+    </style>
+  </head>
 
-    <body>
-        <div id="canvasContainer"></div>
-        <section>
-            <div style="margin-top: 180px;">
-                <p class="blinking-text" style="font-size: 200px;padding-left: 220px;">Go Cab</p>
-            <div style="margin-left: -47px;margin-top:-56px;">
-                <div style="margin-left: 400px ;">
-                    <a href="login">
-                        <button style="font-size:25px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-success">
-                            Login
-                        </button>
-                    </a>
-                </div>
-                <div style="margin-left: 550px;margin-top: -57px;">
-                <a href="signup">    
-                    <button style="font-size:25px;height: 50px; width: 100px;text-align: center" type="button" class="nes-btn is-warning">Signup</button>
-                </a>
-                </div>
-            </div>
-            </div>
-        </section>
+  <body>
+    <div id="canvasContainer"></div>
+    <section>
+      <div style="margin-top: 180px">
+        <p class="blinking-text" style="font-size: 200px; padding-left: 220px">
+          Go Cab
+        </p>
+        <div style="margin-left: -47px; margin-top: -56px">
+          <div style="margin-left: 400px">
+            <a href="login">
+              <button
+                style="
+                  font-size: 25px;
+                  height: 50px;
+                  width: 100px;
+                  text-align: center;
+                "
+                type="button"
+                class="nes-btn is-success"
+              >
+                Login
+              </button>
+            </a>
+          </div>
+          <div style="margin-left: 550px; margin-top: -57px">
+            <a href="signup">
+              <button
+                style="
+                  font-size: 25px;
+                  height: 50px;
+                  width: 100px;
+                  text-align: center;
+                "
+                type="button"
+                class="nes-btn is-warning"
+              >
+                Signup
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                
-        <script type="module" src="javascripts/main_page.js"></script>
-    </body>
+    <script type="module" src="javascripts/main_page.js"></script>
+  </body>
 </html>

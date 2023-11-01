@@ -130,17 +130,23 @@ function redirect_searchtrip(req, res, next) {
 }
 
 function logout(req, res, next) {
+  console.log("logging out");
   res.clearCookie("token");
-  res.redirect("/");
+  res.redirect("/index");
 }
+
 function my_post(req, res, next) {
   var type = req.body.type;
   console.log(req.body);
   console.log(req.body.type);
-  if (type == "1") redirect_searchtrip(req, res, next);
-  else {
-    if (type == "2") newtrip(req, res, next);
-    else {
+  if (type == "1") {
+    redirect_searchtrip(req, res, next);
+    res.redirect("/dashboard");
+  } else {
+    if (type == "2") {
+      newtrip(req, res, next);
+      res.redirect("/dashboard");
+    } else {
       if (type == "3") {
         logout(req, res, next);
       } else
@@ -149,7 +155,6 @@ function my_post(req, res, next) {
           type
         );
     }
-    res.redirect("/dashboard");
   }
 }
 
@@ -161,7 +166,7 @@ function authenticateToken(req, res, next) {
     console.log("token checking");
     const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = user;
-    console.log(req.user["name"]);
+    // console.log(req.user["name"]);
     next();
   } catch (err) {
     console.log("token error");
