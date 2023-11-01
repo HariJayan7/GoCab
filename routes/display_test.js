@@ -4,7 +4,8 @@ var router = express.Router();
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./my_database.db')
 
-
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 
 function display_all_booking()
 {

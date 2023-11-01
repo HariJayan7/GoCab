@@ -4,6 +4,10 @@ var router = express.Router();
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./my_database.db')
 
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
+
 function my_get(req,res,next)
 {
     res.sendFile(path.join(__dirname,'../views/main.html'));
@@ -38,7 +42,9 @@ function display_all_listings()
 
 function my_get_json_dashboard(req,res,next)
 {
-    var pid="B200825CS";
+    const token = req.cookies.token;
+	const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+	var pid = user["name"];
     function get_trips(err,result)
     {
         console.log(result);
@@ -78,7 +84,9 @@ function newtrip(req,res,next)
     var bid=-1;
     function my_process(err,result)
     {
-        var pid="B200825CS";
+        const token = req.cookies.token;
+		const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+		var pid = user["name"];
         if(err)
         {
             console.log("Error while getting oldbid from database "+err);
@@ -129,7 +137,25 @@ function my_post(req,res,next)
         res.redirect("/dashboard");
     }
 }
-router.get('/', my_get);
+
+function authenticateToken(req, res, next) {
+  console.log("authenticating");
+  const token = req.cookies.token;
+  //   console.log(token);
+  try {
+    console.log("token checking");
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    req.user = user;
+    console.log(req.user["name"]);
+    next();
+  } catch (err) {
+    console.log("token error");
+    res.clearCookie("token");
+    return res.redirect("/");
+  }
+}
+
+router.get('/',authenticateToken, my_get);
 router.get('/get_json',my_get_json_dashboard);
 router.post('/',my_post);
 

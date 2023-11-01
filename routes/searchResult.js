@@ -3,6 +3,11 @@ const path = require('path');
 var router = express.Router();
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./my_database.db')
+
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
+
 function addlisting(bid,pid)
 {
     const stmt=db.prepare("INSERT INTO listings SELECT ?,? WHERE NOT EXISTS (SELECT * FROM listings WHERE bid=? AND pid=?)");
@@ -51,7 +56,9 @@ function book_trip(req,res,next)
             console.log("No more Space in this booking");
             else
             {
-                var pid="B200014CS"; // need to change here
+                const token = req.cookies.token;
+                const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+                var pid = user["name"];
                 var cur_num=result[0]['cur_num'];
                 function bookit(err,result)
                 {
@@ -89,7 +96,9 @@ function searchtrip(req,res,next)
     var maxd=req.query.et;
     var start_dest=req.query.start;
     var final_dest=req.query.destination;
-    var pid="B200014CS"
+    const token = req.cookies.token;
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    var pid = user["name"];
     db.all('SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num AND bid NOT IN (SELECT booking.bid FROM booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?)',mind,maxd,start_dest,final_dest,pid,search_process);
     function search_process(err,result)
     {
