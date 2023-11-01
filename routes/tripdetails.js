@@ -54,6 +54,7 @@ function if_listing_exists_and_proceed(bid,pid,cur_num)
 function unbook_trip(req,res,next)
 {
     var body=req.body;
+    console.log(body);
     const token = req.cookies.token;
     const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     var pid = user["name"];

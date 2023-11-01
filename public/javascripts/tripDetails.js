@@ -1,4 +1,33 @@
 var dataArray;
+
+function unbook() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const bookingId = urlSearchParams.get('bid');
+    console.log('Booking ID : ',bookingId);
+    var requestData = { booking_id: bookingId };
+    fetch('/tripDetails', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Data sent successfully:', data);
+    })
+    .catch(error => {
+        console.error('Error sending data:', error);
+        // Log the raw response
+        response.text().then(text => console.error('Raw response:', text));
+    });
+}
+
 function getDataArray() {
     const urlParams = new URLSearchParams(window.location.search);
     fetch(`/tripdetails/get_json?${urlParams}`)

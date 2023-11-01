@@ -121,6 +121,12 @@ function redirect_searchtrip(req,res,next)
     var query="start="+start_dest+"&destination="+final_dest+"&st="+mind+"&et="+maxd;
     res.redirect("/searchResult?"+query);
 }
+
+function logout(req,res,next)
+{
+	res.clearCookie("token");
+	res.redirect("/");
+}
 function my_post(req,res,next)
 {
     var type=req.body.type;
@@ -133,7 +139,14 @@ function my_post(req,res,next)
         if(type=="2")
         newtrip(req,res,next);
         else
-        console.log("type error:",type);
+		{
+			if(type=="3")
+			{
+				logout(req,res,next);
+			}
+			else
+			console.log("Type error, no such operation specified in dashboard: ",type);
+		}
         res.redirect("/dashboard");
     }
 }
