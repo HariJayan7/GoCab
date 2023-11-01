@@ -10,8 +10,9 @@ var indexRouter = require("./routes/index");
 var loginRouter = require("./routes/login");
 var signupRouter = require("./routes/signup");
 var dashboardRouter=require("./routes/dashboard");
-var searchRouter= require("./routes/search");
 var searchresultRouter=require("./routes/searchResult");
+var displaytablestestRouter=require("./routes/display_test");
+var tripdetailsRouter=require("./routes/tripdetails");
 
 var app = express();
 
@@ -32,8 +33,9 @@ app.use("/home",dashboardRouter);
 app.use("/login",loginRouter);
 app.use("/signup",signupRouter);
 app.use("/dashboard",dashboardRouter);
-app.use("/search",searchRouter);
 app.use("/searchResult",searchresultRouter);
+app.use("/display_test",displaytablestestRouter);
+app.use("/tripdetails",tripdetailsRouter);
 
 
 //this is for finding css and js
@@ -74,29 +76,18 @@ function initialize()
 
   var createlistingstable="CREATE TABLE listings (\
     bid int NOT NULL,\
-    pid varchar NOT NULL\
-    FOREIGN KEY(bid) REFERENCES booking(bid)\
+    pid varchar NOT NULL,\
+    FOREIGN KEY(bid) REFERENCES booking(bid),\
     FOREIGN KEY(pid) REFERENCES person(pid)\
   );"
-
-  createlistingstable="CREATE TABLE `listings` (\
-    bid int NOT NULL,\
-    pid varchar NOT NULL\
-  );"
-  
-  var constrant1="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk0` FOREIGN KEY (`bid`) REFERENCES `booking`(`bid`);"
-  var constrant2="ALTER TABLE `listings` ADD CONSTRAINT `listings_fk1` FOREIGN KEY (`pid`) REFERENCES `person`(`pid`);"
 
   //running the commands here
   db.run(createpersontable,alreadyexists);
   db.run(createbookingtable,alreadyexists);
   db.run(createlistingstable,alreadyexists);
-  // db.run(constrant1);
-  // db.run(constrant2);
 
   const stmt = db.prepare('INSERT INTO person VALUES (?,?,?,?,?,?,?)');
   stmt.run("0","root","root","root@gmail.com","000","0","M",alreadyexists);
-  stmt.run("1","rooti","rooti","rooti@gmail.com","0000","0","F",alreadyexists);
   stmt.finalize();
 
   function display(err,result)
@@ -104,6 +95,7 @@ function initialize()
     console.log(result);
   }
   db.all('SELECT * FROM person', display);
+
 }
 
 
