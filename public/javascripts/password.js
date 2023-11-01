@@ -11,8 +11,12 @@ function validateForm(event) {
 function openModal() {
     var modal = document.getElementById('myModal');
     var overlay = document.getElementById('overlay');
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
+    modal.style.display = 'flex';
+    modal.style.flexDirection = 'column';
+    modal.style.alignItems = 'centre';
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
+    overlay.style.alignItems = 'centre';
 }
 
 function closeModal() {
