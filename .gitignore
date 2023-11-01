@@ -112,3 +112,4 @@ node_modules/make-dir/node_modules/.bin/semver.ps1
 node_modules/sqlite3/lib/binding/napi-v6-win32-unknown-x64/node_sqlite3.node
 node_modules/tar/node_modules/.bin/mkdirp.cmd
 node_modules/tar/node_modules/.bin/mkdirp.ps1
+node_modules/express/lib/router/index.js
