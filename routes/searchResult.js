@@ -3,6 +3,7 @@ const path = require("path");
 var router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./my_database.db");
+
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
@@ -16,7 +17,7 @@ function addlisting(bid, pid) {
 function display_all_booking() {
   function display(err, result) {
     if (err) {
-      console.log("Error" + err);
+      console.log("some error" + err);
     }
     console.log("Booking Table:\n");
     console.log(result);
@@ -26,7 +27,7 @@ function display_all_booking() {
 function display_all_listings() {
   function display(err, result) {
     if (err) {
-      console.log("Error" + err);
+      console.log("some error" + err);
     }
     console.log("Listing Table:\n");
     console.log(result);
@@ -38,9 +39,9 @@ function book_trip(req, res, next) {
   var bid = body["booking_id"];
   function my_process(err, result) {
     if (err) {
-      console.log("Error in booking a trip: " + err);
+      console.log("error in Booking a trip: " + err);
     } else {
-      if (result[0] == null) console.log("No space in this booking");
+      if (result[0] == null) console.log("No more Space in this booking");
       else {
         const token = req.cookies.token;
         const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
@@ -57,7 +58,7 @@ function book_trip(req, res, next) {
             display_all_booking();
             display_all_listings();
           } else {
-            console.log("This already listing exists\n");
+            console.log("Already this listing exists\n");
           }
         }
         db.all(
@@ -76,44 +77,6 @@ function book_trip(req, res, next) {
   );
   res.redirect("/dashboard");
 }
-function update_booking(bid, cur_num) {
-  const stmt = db.prepare("UPDATE booking SET cur_num=? WHERE bid=?");
-  stmt.run(cur_num - 1, bid);
-  stmt.finalize();
-  if (cur_num <= 1) remove_booking(bid);
-}
-function remove_booking(bid) {
-  const stmt = db.prepare("DELETE from BOOKING where BID=?");
-  stmt.run(bid);
-  stmt.finalize();
-}
-function remove_listing(bid, pid) {
-  const stmt = db.prepare("DELETE FROM listings WHERE pid=? AND bid=?");
-  stmt.run(pid, bid);
-  stmt.finalize();
-}
-function unbook_trip(req, res, next) {
-  var body = req.body;
-  //   var pid = "B200014CS"; // need to change here
-  const token = req.cookies.token;
-  const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-  var pid = req.user["name"];
-  var bid = body["booking_id"];
-  db.all("SELECT * FROM booking WHERE booking.bid=?", bid, my_processo);
-  function my_processo(err, result) {
-    if (err) {
-      console.log("Got an error while unbooking a trip" + err);
-    } else {
-      if (result[0] == null) console.log("THERE IS NO SUCH BOOKING ID");
-      else {
-        var cur_num = result[0]["cur_num"];
-        remove_listing(bid, pid);
-        update_booking(bid);
-      }
-    }
-    res.redirect("/dashboard");
-  }
-}
 function my_post(req, res, next) {
   book_trip(req, res, next);
 }
@@ -122,23 +85,29 @@ function searchtrip(req, res, next) {
   var maxd = req.query.et;
   var start_dest = req.query.start;
   var final_dest = req.query.destination;
-  console.log(mind, maxd, start_dest, final_dest);
-  function search_process(err, result) {
-    console.log(result);
-    res.send(result);
-  }
+  const token = req.cookies.token;
+  const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  var pid = user["name"];
   db.all(
-    "SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num ",
+    "SELECT * FROM booking WHERE etd>=? AND etd<=? AND start_dest=? AND final_dest=? AND cur_num<max_num AND bid NOT IN (SELECT booking.bid FROM booking INNER JOIN listings ON booking.bid=listings.bid WHERE listings.pid=?)",
     mind,
     maxd,
     start_dest,
     final_dest,
+    pid,
     search_process
   );
+  function search_process(err, result) {
+    console.log(result);
+    res.send(result);
+  }
 }
 function my_get(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/searchResult.html"));
 }
+router.get("/get_json", searchtrip);
+router.get("/", my_get);
+router.post("/", my_post);
 router.get("/get_json", searchtrip);
 router.get("/", my_get);
 router.post("/", my_post);

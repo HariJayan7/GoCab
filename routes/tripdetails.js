@@ -3,6 +3,7 @@ const path = require("path");
 var router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./my_database.db");
+
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
@@ -44,7 +45,7 @@ function if_listing_exists_and_proceed(bid, pid, cur_num) {
 }
 function unbook_trip(req, res, next) {
   var body = req.body;
-  // var pid="B200014CS"; // need to change here
+  console.log(body);
   const token = req.cookies.token;
   const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
   var pid = user["name"];

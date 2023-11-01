@@ -4,18 +4,21 @@ var router = express.Router();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("./my_database.db");
 
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
 function my_get(req, res, next) {
   res.sendFile(path.join(__dirname, "../views/signup.html"));
 }
 
 function alreadyexists(err) {
-  if (err) console.log("This Username/RollNo already exists" + err);
+  if (err) console.log("This username/rollno already exists " + err);
 }
 
 function display_all_people() {
   function display(err, result) {
     if (err) {
-      console.log("Error while displaying people" + err);
+      console.log("Error While displaying people" + err);
     }
     console.log(result);
   }
@@ -39,6 +42,8 @@ function my_post(req, res, next) {
   display_all_people();
   res.redirect("/login");
 }
+router.get("/", my_get);
+router.post("/", my_post);
 router.get("/", my_get);
 router.post("/", my_post);
 
